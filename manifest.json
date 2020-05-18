@@ -1,0 +1,7 @@
+{
+  "name": "Shorten Image URL",
+  "version": "1.0.0",
+  "description": "Allows you to POST image URLs to an external server to shorten",
+  "author": "Ser Ames",
+  "license": "MIT"
+}
