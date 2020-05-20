@@ -32,7 +32,6 @@ module.exports = class Upload extends Plugin {
     xhr.onreadystatechange = (() => {
       if (xhr.readyState == 4 && xhr.status == 200) {
         if (this.settings.get("copy")) {
-          console.log(xhr.response)
           clipboard.writeText(xhr.response, "selection")
         }
       }
@@ -45,39 +44,24 @@ module.exports = class Upload extends Plugin {
   }
 
   async _injectContextMenu() {
-    const {
-      contextMenu
-    } = await getModule(["contextMenu"]);
-    const {
-      imageWrapper
-    } = await getModule(["imageWrapper"]);
-    const callback = () =>
-      setTimeout(async () => {
-        const element = document.querySelector(`.${contextMenu}`);
-        if (element) {
-          const instance = getOwnerInstance(element);
-          if (instance._reactInternalFiber.child.child.pendingProps.type === 'MESSAGE_MAIN') {
-            window.removeEventListener('contextmenu', callback, true);
-            const fn = instance._reactInternalFiber.child.child.type;
-            const mdl = await getModule(m => m.default === fn);
-            inject('shorten-url', mdl, 'default', ([{
-              target
-            }], res) => {
-              if (target.tagName.toLowerCase() === 'img' && target.parentElement.classList.contains(imageWrapper)) {
-                res.props.children.push(
-                  React.createElement(Button, {
-                    name: 'Shorten URL',
-                    separate: false,
-                    onClick: () => this.upload(target.src)
-                  })
-                );
-              }
-              return res;
-            });
-            instance.forceUpdate();
-          }
-        }
-      }, 5);
-    window.addEventListener('contextmenu', callback, true);
+    const menu = await getModule(["MenuItem"])
+    const mdl = await getModule(m => m.default && m.default.displayName === 'MessageContextMenu');
+    inject('shorten-url', mdl, 'default', ([{
+      target
+    }], res) => {
+      if (target.tagName.toLowerCase() === 'img') {
+        res.props.children.splice(4, 0,
+          React.createElement(menu.MenuItem, {
+            name: "Shorten URL",
+            separate: false,
+            id: "shorten-url",
+            label: "Shorten URL",
+            action: () => this.upload(target.src)
+          })
+        );
+      }
+      return res;
+    });
+    mdl.default.displayName = 'MessageContextMenu';
   }
 };

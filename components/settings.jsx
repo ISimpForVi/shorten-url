@@ -7,7 +7,7 @@ module.exports = ({getSetting, updateSetting, toggleSetting}) => (
       note="The domain to be used for uploading."
       required={true}
       value={getSetting("domain")}
-      onChange={val => updateSetting("domain", val.endsWith('/') ? val.slice(0, -1) : val)}
+      onChange={val => updateSetting("domain", val)}
     >
       Domain
     </TextInput>
