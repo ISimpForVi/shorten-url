@@ -6,6 +6,13 @@ This plugin will POST to a saved URL that is defined in the settings menu.
 The plugin needs to have a destination URL that it can POST to otherwise it will not work 
 (there isn't any error handling yet, so if an error occurs, it will be thrown into the console)
 
+The content POSTed will always be application/json with the body of
+```
+{
+ url: the URL of the target image
+}
+```
+This may be subject to change in the future and new parameters may be added.
 
 # Limitations
 The limitations of this plugin are:
