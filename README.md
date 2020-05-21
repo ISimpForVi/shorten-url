@@ -3,7 +3,7 @@ A Powercord plugin that allows you to shorten image URLs
 
 # Set Up
 This plugin will POST to a saved URL that is defined in the settings menu.
-The plugin needs to have a destionation URL that it can POST to otherwise it will not work 
+The plugin needs to have a destination URL that it can POST to otherwise it will not work 
 (there isn't any error handling yet, so if an error occurs, it will be thrown into the console)
 
 
@@ -26,6 +26,6 @@ HTTPS Solutions
  - Use CloudFlare and enforce set an enforce HTTPS page rule
  - Use Let's Encrypt free SSL certificates to generate a SSL certificate
 
-### Future Soltutions
+### Future Solutions
 I intend to host a CORS headers stripping service in the near future to bypass these issues entirely.
 Keep an eye out on this repo so that when I do roll it out, you can use it.
