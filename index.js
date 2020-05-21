@@ -32,7 +32,7 @@ module.exports = class Upload extends Plugin {
     xhr.onreadystatechange = (() => {
       if (xhr.readyState == 4 && xhr.status == 200) {
         if (this.settings.get("copy")) {
-          clipboard.writeText(xhr.response, "selection")
+          clipboard.writeText(xhr.response)
         }
       }
     })
