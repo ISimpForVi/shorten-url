@@ -9,7 +9,8 @@ const {
   React
 } = require("powercord/webpack");
 const {
-  inject
+  inject,
+  uninject
 } = require('powercord/injector');
 const {
   getOwnerInstance
@@ -25,6 +26,10 @@ module.exports = class Upload extends Plugin {
   startPlugin() {
     this.registerSettings("shorten-url", "Shorten URL", settings);
     this._injectContextMenu();
+  }
+
+  pluginWillUnload() {
+    uninject("shorten-url")
   }
 
   async upload(url) {
